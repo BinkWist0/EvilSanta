@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function mainPage(): JSX.Element {
-    
+function MainPage(): JSX.Element {
   return (
     <div>
       <Link to="/register">
@@ -12,4 +11,4 @@ function mainPage(): JSX.Element {
   );
 }
 
-export default mainPage;
+export default MainPage;
