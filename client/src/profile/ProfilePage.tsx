@@ -1,10 +1,11 @@
-import React from 'react';
 
+import React from 'react';
 import type { User } from '../Users/UserType';
 
 function ProfilePage({ user }: { user: User }): JSX.Element {
   return (
     <div>
+      <p>...</p>
       <div>
         <img alt="..." src={user.avatarId} />
       </div>

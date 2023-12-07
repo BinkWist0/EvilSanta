@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 
 function MainPage(): JSX.Element {
   return (
-    <div>
-      <Link to="/register">
-        <button>Регистрация</button>
-      </Link>
+    <div className='full overflow-hidden'>
+      <div className="flex items-center justify-center h-screen">
+        <Link to="/register">
+          <button type="submit">Регистрация</button>
+        </Link>
+      </div>
     </div>
   );
 }

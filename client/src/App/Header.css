@@ -1,0 +1,22 @@
+/* Header.css */
+
+/* Анимация переливающегося фона */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Добавление анимации к фону хедера */
+.animate-gradient {
+  background: linear-gradient(45deg, #ffea00, #ff00e1);
+  background-size: 200% 200%;
+  animation: gradientAnimation 3s infinite;
+  transition: background 1s ease-in-out;
+}
