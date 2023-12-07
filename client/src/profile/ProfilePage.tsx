@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
-import NotUnregistered from './NotUnregistered';
+import React from 'react';
+
+import type { User } from '../Users/UserType';
 
 function ProfilePage({ user }: { user: User }): JSX.Element {
-  const isLoggedIn = useState((store: RootState) => store.userReducer.user);
-
-  if (!isLoggedIn | !user) {
-    return <NotUnregistered />;
-  }
-
   return (
     <div>
       <div>
-        <img alt="..." src={user.avatar} />
+        <img alt="..." src={user.avatarId} />
       </div>
       <div>
         <h1>
           {user.name}
-          {user.firstName}
+          {user.lastname}
         </h1>
       </div>
       <div>

@@ -8,9 +8,11 @@ function UsersList(): JSX.Element {
   const dispatch = useAppDispatch();
   const users = useSelector((store: RootState) => store.usersState.users);
 
-  
   useEffect(() => {
-    dispatch({ type: 'users/init', payload: users });
+    fetch('/api/users')
+      .then((res) => res.json())
+      .then((data) => dispatch({ type: 'users/init', payload: data }))
+      .catch((error) => console.error(error));
   }, []);
 
   return (
