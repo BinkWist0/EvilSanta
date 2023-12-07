@@ -7,6 +7,8 @@ import UserItem from './UserItem';
 function UsersList(): JSX.Element {
   const dispatch = useAppDispatch();
   const users = useSelector((store: RootState) => store.usersState.users);
+
+  
   useEffect(() => {
     dispatch({ type: 'users/init', payload: users });
   }, []);
