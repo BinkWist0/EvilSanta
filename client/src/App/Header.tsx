@@ -1,17 +1,16 @@
 // Header.jsx
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import type { RootState } from '../store/store';
 import './Header.css'; // Импортируйте стили здесь
 
-const Header = (): JSX.Element => {
-  const users = useSelector((store: RootState) => store.usersState.users);
-  console.log(users);
 
+const Header = (): JSX.Element => {
+  const user = { name: 'Vasya', secondName: 'Pupkin' };
   return (
     <nav className="nav p-4 rounded-md mb-8 animate-gradient">
-      {users.length > 0 ? (
+      {user ? (
         <div className="flex justify-between items-center container mx-auto">
           <div>
             <Link to="/" className="text-white font-bold text-2xl">
