@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import NotUnregistered from './NotUnregistered';
+import type { User } from '../Users/UserType';
+import type { RootState } from '../store/store';
 
-function ProfilePage({ user }: { user: User }): JSX.Element {
+function ProfilePage(): JSX.Element {
   const isLoggedIn = useState((store: RootState) => store.userReducer.user);
-
-  if (!isLoggedIn | !user) {
-    return <NotUnregistered />;
-  }
 
   return (
     <div>
+      <p>Хуй с ним </p>
       <div>
         <img alt="..." src={user.avatar} />
       </div>
       <div>
         <h1>
           {user.name}
-          {user.firstName}
+          {user.secondName}
         </h1>
       </div>
       <div>

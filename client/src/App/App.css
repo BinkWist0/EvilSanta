@@ -4,6 +4,41 @@
   padding: 2rem;
   text-align: center;
 }
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('https://i.gifer.com/DN4a.gif');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.garland {
+  position: absolute;
+  content: '';
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(to bottom, #ffea00, #ff00e1);
+  animation: garlandAnimation 1s infinite alternate;
+}
+
+.left-garland {
+  left: -10px;
+}
+
+.right-garland {
+  right: -10px;
+}
+
+@keyframes garlandAnimation {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(10px);
+  }
+}
 
 .logo {
   height: 6em;

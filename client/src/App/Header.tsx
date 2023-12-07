@@ -1,42 +1,73 @@
+// Header.jsx
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import type { RootState } from '../store/store';
+import './Header.css'; // Импортируйте стили здесь
 
 const Header = (): JSX.Element => {
   const users = useSelector((store: RootState) => store.usersState.users);
   console.log(users);
 
   return (
-    <nav className="nav" style={{ marginBottom: '20px', border: '2px solid black' }}>
+    <nav className="nav p-4 rounded-md mb-8 animate-gradient">
       {users.length > 0 ? (
-        <div className='flex justify-between'>
+        <div className="flex justify-between items-center container mx-auto">
           <div>
-            <Link to="/">TS</Link>
+            <Link to="/" className="text-white font-bold text-2xl">
+              🎄 TS Holiday
+            </Link>
           </div>
-          <div>
-            <Link to="/users">Все участники</Link>
-          </div>
-          <div>
-            <Link to="/">Мой получатель</Link>
-          </div>
-          <div>
-            <Link to="/profile">Мой профиль</Link>
+          <div className="flex space-x-4 items-center">
+            <Link
+              to="/users"
+              className="text-white hover:text-gray-300 transition duration-300 ease-in-out"
+            >
+              👥 Все участники
+            </Link>
+            <Link
+              to="/"
+              className="text-white hover:text-gray-300 transition duration-300 ease-in-out"
+            >
+              🎁 Мой получатель
+            </Link>
+            <Link
+              to="/profile"
+              className="text-white hover:text-gray-300 transition duration-300 ease-in-out"
+            >
+              🎅 Мой профиль
+            </Link>
           </div>
         </div>
       ) : (
-        <div>
+        <div className="flex items-center justify-between container mx-auto">
           <div>
-            <Link to="/">TS</Link>
-          </div>
-          <div>
-            <Link to="/registration">
-              <button type="button">Registration</button>
+            <Link to="/" className="text-white font-bold text-2xl">
+              🎄 TS Holiday
             </Link>
           </div>
-          <div>
-            <Link to="/login">
-              <button type="button">Login</button>
+          <div className="flex space-x-4 items-center">
+            <Link
+              to="/registration"
+              className="text-white hover:text-gray-300 transition duration-300 ease-in-out"
+            >
+              <button
+                type="button"
+                className="bg-red-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-full"
+              >
+                🎁 Registration
+              </button>
+            </Link>
+            <Link
+              to="/login"
+              className="text-white hover:text-gray-300 transition duration-300 ease-in-out"
+            >
+              <button
+                type="button"
+                className="bg-red-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-full"
+              >
+                🔒 Login
+              </button>
             </Link>
           </div>
         </div>
