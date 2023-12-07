@@ -10,12 +10,12 @@ const Header = (): JSX.Element => {
   return (
     <nav className="nav" style={{ marginBottom: '20px', border: '2px solid black' }}>
       {users.length > 0 ? (
-        <div>
+        <div className='flex justify-between'>
           <div>
             <Link to="/">TS</Link>
           </div>
           <div>
-            <Link to="/">Все участники</Link>
+            <Link to="/users">Все участники</Link>
           </div>
           <div>
             <Link to="/">Мой получатель</Link>
