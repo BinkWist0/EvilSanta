@@ -1,7 +1,7 @@
 import type { Action } from './action';
 import type { State } from './reducerType';
 
-export const init = { users: [] };
+export const init = { users: [],user:null };
 
 export const usersReducer = (state: State = init, action: Action): State => {
   switch (action.type) {
@@ -10,6 +10,11 @@ export const usersReducer = (state: State = init, action: Action): State => {
         ...state,
         users: action.payload,
       };
+      case 'users/polushatel':
+        return{
+          ...state,
+          user:action.payload
+        }
     default: {
       return state;
     }
