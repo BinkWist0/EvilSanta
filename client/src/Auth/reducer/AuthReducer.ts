@@ -28,6 +28,11 @@ function reducer(state: AuthState = initState, action: AuthAction): AuthState {
         ...state,
         user: action.payload,
       };
+    case 'user/logout':
+      return {
+        ...state,
+        user: null,
+      };
     default:
       return state;
   }

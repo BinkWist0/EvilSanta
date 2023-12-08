@@ -1,17 +1,30 @@
 // Header.jsx
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './Header.css'; // Импортируйте стили здесь
 
 import { useSelector } from 'react-redux';
-import { RootState } from '../store/store';
+import { RootState, useAppDispatch } from '../store/store';
 import { createPortal } from 'react-dom';
 import LoginModal from '../Auth/components/LoginModal';
 
 const Header = (): JSX.Element => {
   const [modal, setModal] = useState(false);
   const { user } = useSelector((store: RootState) => store.usersInfo);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleLogOut = (): void => {
+    fetch('/api/auth/logout')
+      .then((response) => {
+        if (response.ok) {
+          dispatch({ type: 'user/logout' });
+          navigate('/');
+        }
+      })
+      .catch((error: Error) => console.log(error.message));
+  };
 
   return (
     <nav className="nav p-4 rounded-md mb-8 animate-gradient">
@@ -41,6 +54,13 @@ const Header = (): JSX.Element => {
             >
               🎅 Мой профиль
             </Link>
+            <button
+              type="button"
+              className="bg-red-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-full"
+              onClick={handleLogOut}
+            >
+              🔒 LogOut
+            </button>
           </div>
         </div>
       ) : (

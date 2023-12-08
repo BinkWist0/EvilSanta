@@ -17,5 +17,8 @@ type AuthAction =
   | {
       type: 'user/check';
       payload: User;
+    }
+  | {
+      type: 'user/logout';
     };
 export default AuthAction;
