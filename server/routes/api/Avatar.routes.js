@@ -1,17 +1,12 @@
 const router = require('express').Router();
 
-const { User } = require('../../db/models');
 const { Avatar } = require('../../db/models');
 
 router.get('/', async (req, res) => {
   try {
-    const allUser = await User.findAll({
-      include: Avatar,
-      raw: true,
-      where: { isAdmin: false },
-    });
+    const allAvatar = await Avatar.findAll({ raw: true });
 
-    res.status(200).json(allUser);
+    res.status(200).json(allAvatar);
   } catch (error) {
     res.status(500).json(error);
   }

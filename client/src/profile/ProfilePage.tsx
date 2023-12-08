@@ -1,25 +1,26 @@
-
 import React from 'react';
-import type { User } from '../Users/UserType';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
-function ProfilePage({ user }: { user: User }): JSX.Element {
+function ProfilePage(): JSX.Element {
+  const user = useSelector((store: RootState) => store.usersInfo.user);
   return (
     <div>
       <p>...</p>
       <div>
-        <img alt="..." src={user.avatarId} />
+        <img alt="..." src={user!.avatarId} />
       </div>
       <div>
         <h1>
-          {user.name}
-          {user.lastname}
+          {user!.name}
+          {user!.lastname}
         </h1>
       </div>
       <div>
-        <h2>{user.email}</h2>
+        <h2>{user!.email}</h2>
       </div>
       <div>
-        <h3>{user.description}</h3>
+        <h3>{user!.description}</h3>
       </div>
     </div>
   );

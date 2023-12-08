@@ -1,16 +1,20 @@
 // Header.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import type { RootState } from '../store/store';
 import './Header.css'; // Импортируйте стили здесь
-
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { createPortal } from 'react-dom';
+import LoginModal from '../Auth/components/LoginModal';
 
 const Header = (): JSX.Element => {
-  const user = { name: 'Vasya', secondName: 'Pupkin' };
+  const [modal, setModal] = useState(false);
+  const { user, isTut } = useSelector((store: RootState) => store.usersInfo);
+
   return (
     <nav className="nav p-4 rounded-md mb-8 animate-gradient">
-      {user ? (
+      {user && isTut ? (
         <div className="flex justify-between items-center container mx-auto">
           <div>
             <Link to="/" className="text-white font-bold text-2xl">
@@ -46,28 +50,17 @@ const Header = (): JSX.Element => {
             </Link>
           </div>
           <div className="flex space-x-4 items-center">
-            <Link
-              to="/registration"
-              className="text-white hover:text-gray-300 transition duration-300 ease-in-out"
-            >
+            <div className="text-white hover:text-gray-300 transition duration-300 ease-in-out">
               <button
                 type="button"
                 className="bg-red-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-full"
-              >
-                🎁 Registration
-              </button>
-            </Link>
-            <Link
-              to="/login"
-              className="text-white hover:text-gray-300 transition duration-300 ease-in-out"
-            >
-              <button
-                type="button"
-                className="bg-red-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-full"
+                onClick={() => setModal(true)}
               >
                 🔒 Login
               </button>
-            </Link>
+
+              {modal && createPortal(<LoginModal onClose={() => setModal(false)} />, document.body)}
+            </div>
           </div>
         </div>
       )}
