@@ -12,6 +12,13 @@
     background-position: 0% 50%;
   }
 }
+.text-trattatello {
+  font-family: 'Trattatello', cursive;
+}
+.btn-registration,
+.btn-login {
+  font-size: 1.4rem; /* Увеличение размера шрифта на 40% по сравнению с базовым размером */
+}
 
 /* Добавление анимации к фону хедера */
 .animate-gradient {
@@ -19,4 +26,37 @@
   background-size: 200% 200%;
   animation: gradientAnimation 3s infinite;
   transition: background 1s ease-in-out;
+}
+
+/* styles.css */
+
+/* styles.css */
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.card-container {
+  /* Ваши текущие стили карточки */
+
+  /* Добавляем анимацию shimmer */
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Ваши остальные стили */
+
+/* Добавляем уникальные градиенты для каждой анимации shimmer */
+.card-container:nth-child(odd) {
+  background: linear-gradient(90deg, #06a9a48a, #0195df9b, #00a1b391);
+  background-size: 200% 100%;
+}
+
+.card-container:nth-child(even) {
+  background: linear-gradient(90deg, #06a9a48a, #0195df9b, #00a1b391);
+  background-size: 200% 100%;
 }
