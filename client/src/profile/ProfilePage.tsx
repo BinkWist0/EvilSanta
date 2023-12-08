@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
+
 
 function ProfilePage(): JSX.Element {
   const [successMessage, setSuccessMessage] = useState('');
@@ -37,6 +39,7 @@ function ProfilePage(): JSX.Element {
     <div>
       {successMessage && <p>{successMessage}</p>}
       <button onClick={handleRandomize}>Рандомизировать пользователей</button>
+
     </div>
   );
 }
