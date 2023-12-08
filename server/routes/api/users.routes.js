@@ -1,12 +1,10 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
+const { User } = require("../../db/models");
+const { Avatar, Mathes } = require("../../db/models");
+const mathes = require("../../db/models/mathes");
 
-const { User } = require('../../db/models');
-const { Avatar, Mathes } = require('../../db/models');
-const mathes = require('../../db/models/mathes');
-
-
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const allUser = await User.findAll({
       include: Avatar,
@@ -20,7 +18,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/randomize', async (req, res) => {
+router.post("/randomize", async (req, res) => {
   try {
     const users = await User.findAll();
     const sortedUsers = [...users].sort(() => Math.random() - 0.5);
@@ -29,12 +27,23 @@ router.post('/randomize', async (req, res) => {
       const nextIndex = (i + 1) % sortedUsers.length;
       return { userId: user.id, userId2: sortedUsers[nextIndex].id };
     });
+    console.log(recipient);
 
     await Mathes.destroy({ where: {} });
-    
+
     await Mathes.bulkCreate(recipient);
 
     res.status(200).json({ recipient });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+});
+
+router.get("/math", async (req, res) => {
+  try {
+    const math = await Mathes.findOne({where:{userId:res.locals.user.id}, include: User });
+    res.status(200).json( math );
   } catch (error) {
     console.error(error);
     res.status(500).json(error);

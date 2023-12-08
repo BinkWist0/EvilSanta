@@ -1,23 +1,7 @@
-
-import React, { useState, useEffect } from 'react';
-
+import React, { useState } from 'react';
 
 function ProfilePage(): JSX.Element {
   const [successMessage, setSuccessMessage] = useState('');
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch('/api/users');
-        const userData = await response.json();
-        console.log(userData);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
 
   const handleRandomize = async () => {
     try {
@@ -39,7 +23,6 @@ function ProfilePage(): JSX.Element {
     <div>
       {successMessage && <p>{successMessage}</p>}
       <button onClick={handleRandomize}>Рандомизировать пользователей</button>
-
     </div>
   );
 }
