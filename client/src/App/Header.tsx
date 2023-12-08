@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import type { RootState } from '../store/store';
+
 import './Header.css'; // Импортируйте стили здесь
 
 

@@ -4,6 +4,42 @@
   padding: 2rem;
   text-align: center;
 }
+
+.card-container {
+  max-width: 300px;
+  position: relative;
+  background: linear-gradient(to right, rgba(255, 0, 0, 0.5), rgba(255, 255, 255, 0.5));
+  border: 1px solid #00ff00;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #ff0000, #ffffff);
+  opacity: 0.25;
+}
+
+.card-content {
+  z-index: 1; /* Поместите контент поверх фона */
+}
+
+.card-content img,
+.card-content h5,
+.card-content p {
+  /* Примените необходимые стили для текста и изображения */
+  margin: 0;
+  padding: 0;
+  /* Добавьте необходимые стили */
+}
+
+
+
 body {
   margin: 0;
   padding: 0;
