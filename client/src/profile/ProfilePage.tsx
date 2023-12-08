@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import NotUnregistered from './NotUnregistered';
 import type { User } from '../Users/UserType';
+import NotUnregistered from './NotUnregistered';
 import type { RootState } from '../store/store';
 
 function ProfilePage(): JSX.Element {
