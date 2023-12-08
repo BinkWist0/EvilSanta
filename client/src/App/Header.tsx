@@ -9,14 +9,13 @@ import { RootState } from '../store/store';
 import { createPortal } from 'react-dom';
 import LoginModal from '../Auth/components/LoginModal';
 
-
 const Header = (): JSX.Element => {
   const [modal, setModal] = useState(false);
-  const { user, isTut } = useSelector((store: RootState) => store.usersInfo);
+  const { user } = useSelector((store: RootState) => store.usersInfo);
 
   return (
     <nav className="nav p-4 rounded-md mb-8 animate-gradient">
-      {user && isTut ? (
+      {user ? (
         <div className="flex justify-between items-center container mx-auto">
           <div>
             <Link to="/" className="text-trattatello font-bold text-3xl text-white-blue">
@@ -52,13 +51,11 @@ const Header = (): JSX.Element => {
             </Link>
           </div>
           <div className="flex space-x-4 items-center">
-
             <div className="text-white hover:text-gray-300 transition duration-300 ease-in-out">
               <button
                 type="button"
                 className="bg-red-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-full"
                 onClick={() => setModal(true)}
-
               >
                 🔒 Login
               </button>
@@ -73,5 +70,3 @@ const Header = (): JSX.Element => {
 };
 
 export default Header;
-
-

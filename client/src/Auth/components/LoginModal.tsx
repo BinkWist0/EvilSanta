@@ -5,25 +5,36 @@ import { useSelector } from 'react-redux';
 function LoginModal({ onClose }: any): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const dispatch = useAppDispatch();
   const user = useSelector((store: RootState) => store.usersInfo.user);
   console.log(user);
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    fetch('/api/auth/login', {
+    if (email === '' || password === '') {
+      setError('Заполните все поля');
+      return;
+    }
+    const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
-    })
-      .then((res) => res.json())
-      .then((data) => dispatch({ type: 'user/login', payload: data }));
+    });
+    const data = await res.json();
+    if (res.ok) {
+      console.log(data.message);
+      dispatch({ type: 'user/login', payload: data });
+    } else {
+      setError(data.message);
+    }
   };
 
   return (
     <div className="modal">
+      {error ? <div>{error}</div> : ''}
       <form onSubmit={handleLogin}>
         <p>Введите email:</p>
         <input
