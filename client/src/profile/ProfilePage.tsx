@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-// import type { User } from '../Users/UserType';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
+import type { Mathes } from '../Users/MathesType';
 
 function ProfilePage(): JSX.Element {
   const userList = useSelector((store: RootState) => store.usersState.users);
@@ -14,16 +14,22 @@ function ProfilePage(): JSX.Element {
   };
 
   const [users, setUsers] = useState(userList);
-  const [recipient, setRecipient] = useState(null);
+  const [recipient, setRecipient] = useState<Mathes[]>([]);
+
+  function mathes(userId: number, userId2: number): Mathes {
+    return { userId, userId2 };
+  }
 
   function sortUsers(): void {
     const sortedUsers = [...users].sort(() => Math.random() - 0.5);
     setUsers(sortedUsers);
-    const assignments = sortedUsers.map((users, i) => {
+
+    const assignments = sortedUsers.map((user, i) => {
       const nextIndex = (i + 1) % sortedUsers.length;
-      return { userId: user.id, : sortedUsers[nextIndex] };
+      const match = mathes(user.id, sortedUsers[nextIndex].id);
+      setRecipient((prev) => [...prev, match]);
+      return { userId: user.id, mathes: sortedUsers[nextIndex].id };
     });
-    setRecipient(assignments);
   }
 
   return (
@@ -42,6 +48,17 @@ function ProfilePage(): JSX.Element {
       </div>
       <div>
         <h3>{user.description}</h3>
+      </div>
+      <button onClick={sortUsers}>Запустить магию случайного распределения</button>
+      <div>
+        <h3>Связи пользователей:</h3>
+        <ul>
+          {recipient.map((match) => (
+            <li key={match.userId}>
+              Пользователь {match.userId} дарит подарок пользователю {match.userId2}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
