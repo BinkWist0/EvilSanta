@@ -16,7 +16,7 @@ function UsersList(): JSX.Element {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-wrap justify-around">
       {users.map((user) => (
         <UserItem user={user} key={user.id} />
       ))}

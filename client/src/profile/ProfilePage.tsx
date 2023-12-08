@@ -1,14 +1,52 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store/store';
+import type { RootState } from '../store/store';
+import type { Mathes } from '../Users/MathesType';
 
 function ProfilePage(): JSX.Element {
-  const user = useSelector((store: RootState) => store.usersInfo.user);
+  const userList = useSelector((store: RootState) => store.usersState.users);
+  const user = {
+    id: 0,
+    name: 'Vasya',
+    lastname: 'Pupkin',
+    email: 'pupkin@ya.ru',
+    description: 'Happy holidays!',
+  };
+
+  const [users, setUsers] = useState(userList);
+  const [recipient, setRecipient] = useState<Mathes[]>([]);
+
+  function mathes(userId: number, userId2: number): Mathes {
+    return { userId, userId2 };
+  }
+
+  function sortUsers(): void {
+    const sortedUsers = [...users].sort(() => Math.random() - 0.5);
+    setUsers(sortedUsers);
+
+    const recipient = sortedUsers.map((user, i) => {
+      const nextIndex = (i + 1) % sortedUsers.length;
+      const match = mathes(user.id, sortedUsers[nextIndex].id);
+      setRecipient((prev) => [...prev, match]);
+      return { userId: user.id, mathes: sortedUsers[nextIndex].id };
+    });
+    console.log(recipient);
+
+    fetch('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(recipient),
+    });
+  }
+
+
   return (
     <div>
-      <p>...</p>
       <div>
-        <img alt="..." src={user!.avatarId} />
+        <img alt="..." src={user.name} />
       </div>
       <div>
         <h1>
@@ -21,6 +59,17 @@ function ProfilePage(): JSX.Element {
       </div>
       <div>
         <h3>{user!.description}</h3>
+      </div>
+      <button onClick={sortUsers}>Запустить магию случайного распределения</button>
+      <div>
+        <h3>Связи пользователей:</h3>
+        <ul>
+          {recipient.map((match) => (
+            <li key={match.userId}>
+              Пользователь {match.userId} дарит подарок пользователю {match.userId2}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

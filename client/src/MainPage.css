@@ -1,0 +1,18 @@
+/* MainPage.css */
+
+.btn-registration {
+  font-weight: 700; /* жирный текст */
+  width: 100%; /* ширина 100% */
+  color: white; /* белый цвет текста */
+  background-color: #3498db; /* цвет фона (замените на ваш желаемый цвет) */
+  padding: 10px; /* отступы вокруг текста внутри кнопки */
+  border: none; /* убираем границу кнопки */
+  border-radius: 5px; /* закругляем углы кнопки */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* плавное изменение цвета фона */
+}
+
+/* Добавляем эффект при наведении */
+.btn-registration:hover {
+  background-color: #2980b9; /* новый цвет фона при наведении (замените на ваш желаемый цвет) */
+}
