@@ -1,74 +1,42 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../store/store';
-import type { Mathes } from '../Users/MathesType';
+import React, { useState, useEffect } from 'react';
 
 function ProfilePage(): JSX.Element {
-  const userList = useSelector((store: RootState) => store.usersState.users);
-  const user = {
-    id: 0,
-    name: 'Vasya',
-    lastname: 'Pupkin',
-    email: 'pupkin@ya.ru',
-    description: 'Happy holidays!',
+  const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('/api/users');
+        const userData = await response.json();
+        console.log(userData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const handleRandomize = async () => {
+    try {
+      const response = await fetch('/api/users/randomize', {
+        method: 'POST',
+      });
+      const data = await response.json();
+
+      console.log(data);
+
+      setSuccessMessage('Операция выполнена успешно!');
+    } catch (error) {
+      console.error('Error during randomization:', error);
+      setSuccessMessage('Произошла ошибка при выполнении операции.');
+    }
   };
-
-  const [users, setUsers] = useState(userList);
-  const [recipient, setRecipient] = useState<Mathes[]>([]);
-
-  function mathes(userId: number, userId2: number): Mathes {
-    return { userId, userId2 };
-  }
-
-  function sortUsers(): void {
-    const sortedUsers = [...users].sort(() => Math.random() - 0.5);
-    setUsers(sortedUsers);
-
-    const recipient = sortedUsers.map((user, i) => {
-      const nextIndex = (i + 1) % sortedUsers.length;
-      const match = mathes(user.id, sortedUsers[nextIndex].id);
-      setRecipient((prev) => [...prev, match]);
-      return { userId: user.id, mathes: sortedUsers[nextIndex].id };
-    });
-    console.log(recipient);
-
-    fetch('/api/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(recipient),
-    });
-  }
 
   return (
     <div>
-      <div>
-        <img alt="..." src={user.name} />
-      </div>
-      <div>
-        <h1>
-          {user.name}
-          {user.lastname}
-        </h1>
-      </div>
-      <div>
-        <h2>{user.email}</h2>
-      </div>
-      <div>
-        <h3>{user.description}</h3>
-      </div>
-      <button onClick={sortUsers}>Запустить магию случайного распределения</button>
-      <div>
-        <h3>Связи пользователей:</h3>
-        <ul>
-          {recipient.map((match) => (
-            <li key={match.userId}>
-              Пользователь {match.userId} дарит подарок пользователю {match.userId2}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {successMessage && <p>{successMessage}</p>}
+      <button onClick={handleRandomize}>Рандомизировать пользователей</button>
     </div>
   );
 }
