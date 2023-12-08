@@ -24,11 +24,20 @@ function ProfilePage(): JSX.Element {
     const sortedUsers = [...users].sort(() => Math.random() - 0.5);
     setUsers(sortedUsers);
 
-    const assignments = sortedUsers.map((user, i) => {
+    const recipient = sortedUsers.map((user, i) => {
       const nextIndex = (i + 1) % sortedUsers.length;
       const match = mathes(user.id, sortedUsers[nextIndex].id);
       setRecipient((prev) => [...prev, match]);
       return { userId: user.id, mathes: sortedUsers[nextIndex].id };
+    });
+    console.log(recipient);
+
+    fetch('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(recipient),
     });
   }
 
