@@ -31,7 +31,7 @@ const Header = (): JSX.Element => {
               👥 Все участники
             </Link>
             <Link
-              to="/"
+              to="/math"
               className="text-trattatello hover:text-gray-300 transition duration-300 ease-in-out"
             >
               🎁 Мой получатель

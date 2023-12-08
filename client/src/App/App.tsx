@@ -9,6 +9,7 @@ import MainPage from '../mainPage';
 import ProfilePage from '../profile/ProfilePage';
 import { useAppDispatch } from '../store/store';
 import { User } from '../Users/UserType';
+import MathPage from '../MyMatch/components/MathPage';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ function App(): JSX.Element {
           <Route path="/users" element={<UsersList />} />
           <Route path="/" element={<MainPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/math" element={<MathPage />} />
         </Route>
       </Routes>
     </div>
