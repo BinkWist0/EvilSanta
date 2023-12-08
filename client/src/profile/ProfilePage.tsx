@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
@@ -41,6 +42,7 @@ function ProfilePage(): JSX.Element {
     });
   }
 
+
   return (
     <div>
       <div>
@@ -48,15 +50,15 @@ function ProfilePage(): JSX.Element {
       </div>
       <div>
         <h1>
-          {user.name}
-          {user.lastname}
+          {user!.name}
+          {user!.lastname}
         </h1>
       </div>
       <div>
-        <h2>{user.email}</h2>
+        <h2>{user!.email}</h2>
       </div>
       <div>
-        <h3>{user.description}</h3>
+        <h3>{user!.description}</h3>
       </div>
       <button onClick={sortUsers}>Запустить магию случайного распределения</button>
       <div>

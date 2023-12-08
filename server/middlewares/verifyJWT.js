@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const generateTokens = require('../utils/authUtils');
-const jwtConfig = require('../config/jwtConfig')
+const cookiesConfig = require('../config/cookiesConfig');
 
 // логика проверки refresh token
 function verifyRefreshToken(req, res, next) {
@@ -8,23 +8,30 @@ function verifyRefreshToken(req, res, next) {
   const { refresh } = req.cookies;
 
   try {
-    const { user } = jwt.verify(refresh, process.env.REFRESH_TOKEN_SECRET);
-
+    const { user } = jwt.verify(refresh, 'r');
+    console.log(user, 'verify');
     // если верификация прошла успешно, то кладем user в res.locals (зачем он там нужен?)
     res.locals.user = user;
 
     // сгенерируем  новые jwt токены
     const { accessToken, refreshToken } = generateTokens({
-      user: { id: user.id, name: user.name, email: user.email },
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        lastname: user.lastname,
+        avatarId: user.avatarId,
+        isAdmin: user.isAdmin,
+      },
     });
 
     // Возвращаем токены в httpOnly cookie при ответе
     // устанавливаем куки
-    res.cookie(jwtConfig.access.type, accessToken, {
+    res.cookie(cookiesConfig.access.type, accessToken, {
       maxAge: 1000 * 60 * 5,
       httpOnly: true,
     });
-    res.cookie(jwtConfig.refresh.type, refreshToken, {
+    res.cookie(cookiesConfig.refresh.type, refreshToken, {
       maxAge: 1000 * 60 * 60 * 12,
       httpOnly: true,
     });
@@ -33,7 +40,7 @@ function verifyRefreshToken(req, res, next) {
     next();
   } catch (error) {
     // сюда упали, если refresh кука была, но верификацию не прошла, значит - кука некорректная
-    res.clearCookie(jwtConfig.refresh.type);
+    res.clearCookie(cookiesConfig.refresh.type);
     next();
   }
 }
@@ -43,7 +50,7 @@ function verifyAccessToken(req, res, next) {
   // проверяем, если есть кука с access token
   const { access } = req.cookies;
 
-  const { user } = jwt.verify(access, process.env.ACCESS_TOKEN_SECRET);
+  const { user } = jwt.verify(access, 'a');
   // если верификация прошла успешно, то кладем user в res.locals
   res.locals.user = user;
   // и отправляем запрос дальше
@@ -56,7 +63,7 @@ function checkUser(req, res, next) {
     verifyAccessToken(req, res, next);
   } catch (error) {
     // если access нет или она некорректная, то упадёт сюда - следующий шаг проверка refresh
-    res.clearCookie(jwtConfig.access.type); //  на всякий случай чистим некорректную куку
+    res.clearCookie(cookiesConfig.access.type); //  на всякий случай чистим некорректную куку
     verifyRefreshToken(req, res, next);
   }
 }

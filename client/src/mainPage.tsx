@@ -1,20 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
+import RegModal1 from './Auth/components/RegModal1';
 
 function MainPage(): JSX.Element {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="full overflow-hidden">
       <div className="flex items-center justify-center h-screen">
-        <Link to="/register">
-          <button type="submit" className="btn-registration mt-[-800px]">
-            Регистрация
-          </button>
-        </Link>
+        <button type="button" onClick={() => setShowModal(true)}>
+          Регистрация
+        </button>
+        {showModal &&
+          createPortal(<RegModal1 onClose={() => setShowModal(false)} />, document.body)}
       </div>
     </div>
   );
 }
 
 export default MainPage;
-
-
