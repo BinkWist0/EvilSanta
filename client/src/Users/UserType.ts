@@ -1,10 +1,11 @@
 export type User = {
-    id: number;
-    name: string;
-    secondName: string;
-    email: string;
-    password: string;
-    isAdmin: boolean;
-    avatar: string;
-    description: string;
-}
+  id: number;
+  name: string;
+  lastname: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+  avatarId: string;
+  description: string;
+  "Avatar.url": string;
+};
